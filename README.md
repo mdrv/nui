@@ -1,10 +1,11 @@
-# install-nu
+# nui
 
-Install prebuilt [Nushell](https://www.nushell.sh) on macOS & Linux in one
-command — no compiler, no Homebrew, no waiting on a source build.
+**nui** is short for **nu installation** — install prebuilt
+[Nushell](https://www.nushell.sh) on macOS & Linux in one command. No
+compiler, no Homebrew, no waiting on a source build.
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/mdrv/install-nu/main/install-nu.sh | sh
+curl -fsSL https://raw.githubusercontent.com/mdrv/nui/main/nui.sh | sh
 ```
 
 ## What it does
@@ -40,8 +41,8 @@ Environment equivalents: `NU_VERSION`, `NU_PREFIX`.
 
 ```sh
 # examples
-sh install-nu.sh --version 0.116.0
-NU_PREFIX="$HOME/.nushell" sh install-nu.sh
+sh nui.sh --version 0.116.0
+NU_PREFIX="$HOME/.nushell" sh nui.sh
 ```
 
 ## Requirements

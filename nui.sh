@@ -1,12 +1,12 @@
 #!/bin/sh
-# install-nu — install prebuilt Nushell on macOS & Linux in one command.
+# nui ("nu installation") — install prebuilt Nushell on macOS & Linux in one command.
 # No compiler, no Homebrew: downloads the official release tarball from
 # GitHub, verifies its sha256, and installs `nu` plus the bundled plugins
 # into ~/.local/bin.
 #
 # Usage:
-#   curl -fsSL https://raw.githubusercontent.com/mdrv/install-nu/main/install-nu.sh | sh
-#   sh install-nu.sh [--version X.Y.Z] [--prefix DIR] [--no-path]
+#   curl -fsSL https://raw.githubusercontent.com/mdrv/nui/main/nui.sh | sh
+#   sh nui.sh [--version X.Y.Z] [--prefix DIR] [--no-path]
 #
 # Env: NU_VERSION (pin a release, e.g. 0.116.0), NU_PREFIX (install root).
 # Upgrade any time by running it again.
@@ -27,11 +27,11 @@ trap cleanup EXIT INT TERM
 
 usage() {
 	cat <<'EOF'
-install-nu — install prebuilt Nushell on macOS & Linux (no compilation)
+nui ("nu installation") — install prebuilt Nushell on macOS & Linux (no compilation)
 
 Usage:
-  curl -fsSL https://raw.githubusercontent.com/mdrv/install-nu/main/install-nu.sh | sh
-  sh install-nu.sh [options]
+  curl -fsSL https://raw.githubusercontent.com/mdrv/nui/main/nui.sh | sh
+  sh nui.sh [options]
 
 Options:
   --version X.Y.Z   install a specific release (default: latest)
@@ -46,7 +46,7 @@ EOF
 }
 
 info() { printf '==> %s\n' "$1"; }
-err() { printf 'install-nu: error: %s\n' "$1" >&2; exit 1; }
+err() { printf 'nui: error: %s\n' "$1" >&2; exit 1; }
 
 VERSION="${NU_VERSION:-}"
 PREFIX="${NU_PREFIX:-$HOME/.local}"
@@ -228,7 +228,7 @@ if [ "$on_path" = 0 ]; then
 			read -r answer || answer=""
 			case "$answer" in
 				y | Y | yes | Yes | YES)
-					printf '\n# Added by install-nu\nexport PATH="%s:$PATH"\n' "$BINDIR" >>"$rc"
+					printf '\n# Added by nui\nexport PATH="%s:$PATH"\n' "$BINDIR" >>"$rc"
 					path_action="added"
 					;;
 			esac
