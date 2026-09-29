@@ -35,6 +35,7 @@ build on Alpine and other musl-based distros.
 | `--version X.Y.Z` | install a specific release instead of latest |
 | `--prefix DIR` | install under `DIR/bin` (default `~/.local`) |
 | `--no-path` | skip the shell-rc `PATH` offer |
+| `--no-shell` | skip the login-shell offer (registers `nu` in `/etc/shells`, then `chsh -s`) |
 | `-h, --help` | show help |
 
 Environment equivalents: `NU_VERSION`, `NU_PREFIX`.
