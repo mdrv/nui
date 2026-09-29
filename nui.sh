@@ -168,7 +168,13 @@ curl -fsSL "$URL" -o "$TARBALL" || err "download failed: $URL"
 
 DIGEST=$(printf '%s\n' "$RELEASE_JSON" | awk -v asset="\"name\": \"$ASSET\"" '
 	index($0, asset) { found = 1; next }
-	found && /"digest":/ { sub(/^.*"digest": *"/, ""); sub(/".*$/, ""); print; exit }
+	# Scan the whole JSON: exiting early would SIGPIPE the feeding printf on
+	# releases whose target asset sits past the 64 KiB pipe buffer. A later
+	# "name" line ends the JSON object of this asset — without the reset
+	# below, an asset with no digest would steal the next digest.
+	/"name":/ { found = 0 }
+	found && dig == "" && /"digest": *"sha256:[0-9a-f]{64}"/ { sub(/^.*"digest": *"/, ""); sub(/".*$/, ""); dig = $0 }
+	END { print dig }
 ')
 if [ -n "$DIGEST" ]; then
 	if [ -z "$sha_tool" ]; then
